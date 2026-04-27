@@ -27,22 +27,22 @@ export default function LandingHero({ onLaunch }) {
 
       <div className="hero-content perspective-container">
         <p className="hero-kicker">
-          <span className="kicker-icon">◆</span> Built on Soroban · Stellar Blockchain
+          <span className="kicker-icon">◆</span> Built on EVM · Nero Chain Blockchain
         </p>
         <h1 className="hero-title">
           <span className="hero-title-line">Inventory Management</span>
           <span className="hero-title-line accent-line">On The Blockchain</span>
         </h1>
         <p className="hero-subtitle">
-          A production-grade decentralized inventory console powered by Soroban smart contracts.
-          Add products, manage stock, track value — all on-chain with Freighter wallet.
+          A production-grade decentralized inventory console powered by EVM smart contracts.
+          Add products, manage stock, track value — all on-chain with MetaMask wallet.
         </p>
         <div className="hero-cta-group">
           <button type="button" className="btn-hero-primary" onClick={onLaunch}>
             <span>Launch Console</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
-          <a href="https://developers.stellar.org/docs/build/smart-contracts/overview" target="_blank" rel="noopener noreferrer" className="btn-hero-outline">
+          <a href="https://developers.nerochain.io/docs/build/smart-contracts/overview" target="_blank" rel="noopener noreferrer" className="btn-hero-outline">
             Read the Docs
           </a>
         </div>

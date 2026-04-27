@@ -13,7 +13,7 @@ const features = [
       </svg>
     ),
     title: "On-Chain Inventory",
-    desc: "Every product, stock update, and price change is stored immutably on the Stellar blockchain via Soroban smart contracts.",
+    desc: "Every product, stock update, and price change is stored immutably on the Nero Chain blockchain via EVM smart contracts.",
   },
   {
     icon: (
@@ -33,7 +33,7 @@ const features = [
       </svg>
     ),
     title: "Owner-Secured Writes",
-    desc: "All write operations require Freighter wallet signatures. Only the product owner can modify stock, pricing, or discontinue items.",
+    desc: "All write operations require MetaMask wallet signatures. Only the product owner can modify stock, pricing, or discontinue items.",
   },
 ];
 
@@ -86,7 +86,7 @@ export default function Features() {
     <section ref={sectionRef} className="section-features" id="features">
       <div className="section-inner">
         <div className="features-heading">
-          <p className="section-kicker">Why Soroban Inventory?</p>
+          <p className="section-kicker">Why EVM Inventory?</p>
           <h2 className="section-title">Built for the Decentralized Future</h2>
           <p className="section-subtitle">
             Manage your product inventory with the transparency and security of blockchain technology.

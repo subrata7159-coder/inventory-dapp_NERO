@@ -6,8 +6,8 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: "Stellar", label: "Blockchain Network" },
-  { value: "Soroban", label: "Smart Contract Platform" },
+  { value: "Nero Chain", label: "Blockchain Network" },
+  { value: "EVM", label: "Smart Contract Platform" },
   { value: "100%", label: "On-Chain Storage" },
   { value: "Testnet", label: "Deployment Target" },
 ];

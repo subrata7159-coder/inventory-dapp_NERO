@@ -12,7 +12,7 @@ import HowItWorks from "./components/HowItWorks.jsx";
 import StatsSection from "./components/StatsSection.jsx";
 
 import {
-  checkConnection,
+  connectWallet,
   addProduct,
   updateStock,
   updatePrice,
@@ -21,7 +21,7 @@ import {
   listProducts,
   getLowStock,
   getTotalValue,
-} from "../lib/stellar.js";
+} from "../lib/nero.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,14 +65,14 @@ const parseNumericField = (value, fieldName) => {
   return parsed;
 };
 
-const stroopsToXlm = (value) => {
+const weiToEth = (value) => {
   try {
     const raw = typeof value === "bigint" ? value : BigInt(value || 0);
     const sign = raw < 0n ? "-" : "";
     const absolute = raw < 0n ? -raw : raw;
-    const whole = absolute / 10000000n;
-    const fraction = String(absolute % 10000000n)
-      .padStart(7, "0")
+    const whole = absolute / 1000000000000000000n;
+    const fraction = String(absolute % 1000000000000000000n)
+      .padStart(18, "0")
       .replace(/0+$/, "");
     return `${sign}${whole}${fraction ? `.${fraction}` : ""}`;
   } catch {
@@ -96,9 +96,9 @@ const buildWriteSummary = (actionName, txResult) => {
 const toFriendlyResult = (actionName, result) => {
   if (actionName === "getTotalValue") {
     return {
-      totalValueStroops:
+      totalValueWei:
         typeof result === "bigint" ? result.toString() : String(result),
-      totalValueXLM: stroopsToXlm(result),
+      totalValueNERO: weiToEth(result),
     };
   }
   if (actionName === "listProducts" || actionName === "getLowStock") {
@@ -136,7 +136,7 @@ export default function App() {
   const [confirmAction, setConfirmAction] = useState(null);
   const [notice, setNotice] = useState({
     type: "info",
-    message: "Connect Freighter to begin.",
+    message: "Connect MetaMask to begin.",
   });
   const [history, setHistory] = useState([]);
 
@@ -241,7 +241,7 @@ export default function App() {
   /* ─── ACTION HANDLERS (unchanged) ─── */
   const onConnect = () =>
     runAction("connect", async () => {
-      const user = await checkConnection();
+      const user = await connectWallet();
       if (user) {
         setWalletState(user.publicKey);
         setForm((prev) => ({ ...prev, owner: user.publicKey }));
@@ -253,7 +253,7 @@ export default function App() {
         setWalletState(null);
         setNotice({
           type: "error",
-          message: "Wallet not connected. Open Freighter and try again.",
+          message: "Wallet not connected. Open MetaMask and try again.",
         });
       }
       return user ? `Connected: ${user.publicKey}` : "Wallet: not connected";
@@ -262,8 +262,8 @@ export default function App() {
   const validateCommon = () => {
     if (!form.id.trim()) throw new Error("Product ID is required");
     if (!form.owner.trim()) throw new Error("Owner address is required");
-    if (!form.owner.trim().startsWith("G")) {
-      throw new Error("Owner address should start with G");
+    if (!form.owner.trim().startsWith("0x")) {
+      throw new Error("Owner address should start with 0x");
     }
   };
 
@@ -360,14 +360,14 @@ export default function App() {
           <p className="section-kicker">Smart Contract Operations</p>
           <h2 className="section-title">Inventory Console</h2>
           <p className="section-subtitle">
-            Manage your on-chain inventory. Connect Freighter, then create, update, and query products.
+            Manage your on-chain inventory. Connect MetaMask, then create, update, and query products.
           </p>
         </div>
 
         <main className="app">
           <header className="top-shell">
             <section className="hero-section">
-              <p className="kicker">Soroban Inventory Console</p>
+              <p className="kicker">EVM Inventory Console</p>
               <h1>Smart Contract Operations</h1>
               <p className="subtitle">
                 Production-style interface for your contract: create products,
@@ -394,7 +394,7 @@ export default function App() {
                 onClick={onConnect}
                 disabled={isBusy}
               >
-                {walletState ? "Refresh Connection" : "Connect Freighter"}
+                {walletState ? "Refresh Connection" : "Connect MetaMask"}
               </button>
               {walletState && (
                 <button
@@ -468,7 +468,7 @@ export default function App() {
                         onChange={setField}
                         placeholder="G..."
                       />
-                      <span className="helper">Stellar public key</span>
+                      <span className="helper">Nero Chain public key</span>
                     </div>
                     <div className="form-group">
                       <label htmlFor="name">Product Name</label>
@@ -498,10 +498,10 @@ export default function App() {
                         type="number"
                         min="0"
                       />
-                      <span className="helper">u32 value</span>
+                      <span className="helper">uint256 value</span>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="unitPrice">Unit Price (stroops)</label>
+                      <label htmlFor="unitPrice">Unit Price (wei)</label>
                       <input
                         id="unitPrice"
                         name="unitPrice"
@@ -510,7 +510,7 @@ export default function App() {
                         type="number"
                         min="0"
                       />
-                      <span className="helper">i128 value</span>
+                      <span className="helper">uint256 value</span>
                     </div>
                     <div className="form-group">
                       <label htmlFor="category">Category Symbol</label>
@@ -582,7 +582,7 @@ export default function App() {
                       </span>
                     </div>
                     <div className="form-group">
-                      <label htmlFor="newPrice">New Price (stroops)</label>
+                      <label htmlFor="newPrice">New Price (wei)</label>
                       <input
                         id="newPrice"
                         name="newPrice"
@@ -730,21 +730,21 @@ export default function App() {
 
       <footer className="site-footer">
         <p>
-          Soroban Inventory Console — Built on{" "}
+          EVM Inventory Console — Built on{" "}
           <a
-            href="https://stellar.org"
+            href="https://nerochain.io"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Stellar
+            Nero Chain
           </a>{" "}
           &amp;{" "}
           <a
-            href="https://soroban.stellar.org"
+            href="https://nerochain.io"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Soroban
+            EVM
           </a>
         </p>
       </footer>

@@ -9,7 +9,7 @@ const steps = [
   {
     num: "01",
     title: "Connect Wallet",
-    desc: "Link your Freighter browser extension to authenticate with the Stellar testnet. Your public key becomes the owner identity.",
+    desc: "Link your MetaMask browser extension to authenticate with the Nero Chain testnet. Your public key becomes the owner identity.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
         <rect x="2" y="6" width="20" height="14" rx="3" stroke="currentColor" strokeWidth="1.5"/>

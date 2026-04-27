@@ -45,7 +45,7 @@ export default function Navbar() {
             <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/>
             <path d="M12 2a10 10 0 010 20M12 2a10 10 0 000 20M2 12h20" stroke="currentColor" strokeWidth="1.5"/>
           </svg>
-          <span>Soroban Inventory</span>
+          <span>EVM Inventory</span>
         </button>
 
         <div className={`nav-links${mobileOpen ? " nav-links-open" : ""}`}>
