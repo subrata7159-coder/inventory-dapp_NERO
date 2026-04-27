@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0e17" />
+    <title>Soroban Inventory Console — Stellar dApp</title>
+    <meta name="description" content="Production-grade inventory management powered by Soroban smart contracts on the Stellar blockchain. Connect Freighter wallet to manage products on-chain." />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      globalThis.global = globalThis.global || globalThis;
+      globalThis.process = globalThis.process || { env: {}, version: '', browser: true };
+    </script>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
